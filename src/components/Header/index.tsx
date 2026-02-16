@@ -25,6 +25,7 @@ const Header: React.FC<HeaderProps> = ({ title = 'My App' }) => {
             <li><a href="/about" className={styles.navLink}>About</a></li>
             <li><a href="/services" className={styles.navLink}>Services</a></li>
             <li><a href="/contact" className={styles.navLink}>Contact</a></li>
+            <li><a href="/tic-tac-toe" className={styles.navLink}>Tic Tac Toe</a></li>
           </ul>
         </nav>
 
