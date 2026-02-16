@@ -1,0 +1,50 @@
+.list {
+  h2 {
+    font-size: 1.25rem;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+}
+
+.loading {
+  text-align: center;
+  padding: 3rem;
+  color: #666;
+
+  p {
+    margin-top: 1rem;
+  }
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+  border: 3px solid #eee;
+  border-top-color: #667eea;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error {
+  background: #fee;
+  color: #c00;
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.empty {
+  background: white;
+  border-radius: 12px;
+  padding: 3rem;
+  text-align: center;
+  color: #999;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
