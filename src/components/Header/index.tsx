@@ -43,6 +43,20 @@ export function Header() {
           >
             Commits
           </NavLink>
+          <NavLink
+            to="/fmail"
+            className={({ isActive }) => isActive ? styles.active : ''}
+            onClick={closeMenu}
+          >
+            Fmail
+          </NavLink>
+          <NavLink
+            to="/fforms"
+            className={({ isActive }) => isActive ? styles.active : ''}
+            onClick={closeMenu}
+          >
+            Fforms
+          </NavLink>
         </nav>
 
         <div className={styles.userMenu}>
