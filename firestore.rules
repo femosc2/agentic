@@ -10,5 +10,19 @@ service cloud.firestore {
                     && resource.data.userId == request.auth.uid
                     && request.resource.data.userId == request.auth.uid;
     }
+
+    match /emails/{emailId} {
+      allow read, delete: if request.auth != null
+                          && resource.data.userId == request.auth.uid;
+      allow create: if request.auth != null
+                    && request.resource.data.userId == request.auth.uid;
+    }
+
+    match /forms/{formId} {
+      allow read, delete: if request.auth != null
+                          && resource.data.userId == request.auth.uid;
+      allow create: if request.auth != null
+                    && request.resource.data.userId == request.auth.uid;
+    }
   }
 }
