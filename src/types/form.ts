@@ -11,6 +11,8 @@ export interface FormEntry {
   userId: string
   userDisplayName: string | null
   userPhotoUrl: string | null
+  processed: boolean
+  taskId?: string
 }
 
 export interface CreateFormInput {

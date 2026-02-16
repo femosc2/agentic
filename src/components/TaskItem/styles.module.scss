@@ -23,6 +23,10 @@
     border-left-color: #4caf50;
   }
 
+  &.draft {
+    border-left-color: #9c27b0;
+  }
+
   &.failed {
     border-left-color: #f44336;
   }
@@ -68,10 +72,31 @@
     color: #155724;
   }
 
+  .draft & {
+    background: #f3e5f5;
+    color: #6a1b9a;
+  }
+
   .failed & {
     background: #f8d7da;
     color: #721c24;
   }
+}
+
+.badges {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.sourceBadge {
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  background: #e8eaf6;
+  color: #3949ab;
 }
 
 .description {
@@ -147,4 +172,70 @@
     opacity: 0.5;
     cursor: not-allowed;
   }
+}
+
+.architectReview {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  background: #f5f0ff;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+.reviewHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.reviewLabel {
+  font-weight: 600;
+  color: #555;
+  font-size: 0.8rem;
+}
+
+.complexityBadge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.15rem 0.5rem;
+  border-radius: 10px;
+
+  &.low {
+    background: #e8f5e9;
+    color: #2e7d32;
+  }
+
+  &.medium {
+    background: #fff3e0;
+    color: #e65100;
+  }
+
+  &.high {
+    background: #fce4ec;
+    color: #c62828;
+  }
+}
+
+.impactedFiles {
+  margin-top: 0.25rem;
+
+  ul {
+    margin: 0.25rem 0 0;
+    padding-left: 1.25rem;
+    list-style: disc;
+  }
+
+  li {
+    font-family: monospace;
+    font-size: 0.8rem;
+    color: #555;
+  }
+}
+
+.reviewNotes {
+  margin-top: 0.5rem;
+  color: #666;
+  font-style: italic;
 }

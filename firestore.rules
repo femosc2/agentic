@@ -2,6 +2,7 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /tasks/{taskId} {
+      // User access (authenticated, own tasks)
       allow read, delete: if request.auth != null
                           && resource.data.userId == request.auth.uid;
       allow create: if request.auth != null
@@ -9,20 +10,35 @@ service cloud.firestore {
       allow update: if request.auth != null
                     && resource.data.userId == request.auth.uid
                     && request.resource.data.userId == request.auth.uid;
+
+      // Agent access: create draft tasks, read/update draft and pending tasks
+      allow create: if request.resource.data.status == 'draft';
+      allow read: if resource.data.status in ['draft', 'pending'];
+      allow update: if resource.data.status in ['draft', 'pending'];
     }
 
     match /emails/{emailId} {
+      // User access (authenticated, own emails)
       allow read, delete: if request.auth != null
                           && resource.data.userId == request.auth.uid;
       allow create: if request.auth != null
                     && request.resource.data.userId == request.auth.uid;
+
+      // Agent access: read/update emails (processed or not)
+      allow read: if resource.data.get('processed', false) == false;
+      allow update: if true;
     }
 
     match /forms/{formId} {
+      // User access (authenticated, own forms)
       allow read, delete: if request.auth != null
                           && resource.data.userId == request.auth.uid;
       allow create: if request.auth != null
                     && request.resource.data.userId == request.auth.uid;
+
+      // Agent access: read/update forms (processed or not)
+      allow read: if resource.data.get('processed', false) == false;
+      allow update: if true;
     }
   }
 }

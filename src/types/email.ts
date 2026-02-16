@@ -9,6 +9,8 @@ export interface Email {
   userId: string
   userDisplayName: string | null
   userPhotoUrl: string | null
+  processed: boolean
+  taskId?: string
 }
 
 export interface CreateEmailInput {

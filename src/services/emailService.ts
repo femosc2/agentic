@@ -24,6 +24,7 @@ export async function createEmail(input: CreateEmailInput): Promise<string> {
     userId: input.userId,
     userDisplayName: input.userDisplayName,
     userPhotoUrl: input.userPhotoUrl,
+    processed: false,
   })
   return docRef.id
 }

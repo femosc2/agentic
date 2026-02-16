@@ -24,6 +24,7 @@ export async function createFormEntry(input: CreateFormInput): Promise<string> {
     userId: input.userId,
     userDisplayName: input.userDisplayName,
     userPhotoUrl: input.userPhotoUrl,
+    processed: false,
   })
   return docRef.id
 }

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { Task } from '../../types/task'
 import { deleteTask } from '../../services/taskService'
+import { Markdown } from '../Markdown'
 import styles from './styles.module.scss'
 
 interface TaskItemProps {
@@ -8,6 +9,7 @@ interface TaskItemProps {
 }
 
 const statusLabels: Record<Task['status'], string> = {
+  draft: 'Draft',
   pending: 'Pending',
   in_progress: 'In Progress',
   completed: 'Completed',
@@ -38,14 +40,47 @@ export function TaskItem({ task }: TaskItemProps) {
     <div className={`${styles.item} ${styles[task.status]}`}>
       <div className={styles.header}>
         <h3>{task.title}</h3>
-        <span className={styles.status}>{statusLabels[task.status]}</span>
+        <div className={styles.badges}>
+          {task.source === 'product-owner' && (
+            <span className={styles.sourceBadge}>Auto-generated</span>
+          )}
+          <span className={styles.status}>{statusLabels[task.status]}</span>
+        </div>
       </div>
 
-      {task.description && <p className={styles.description}>{task.description}</p>}
+      {task.description && (
+        <div className={styles.description}>
+          <Markdown content={task.description} />
+        </div>
+      )}
 
       <div className={styles.meta}>
         <span className={styles.date}>Created: {formatDate(task.createdAt)}</span>
       </div>
+
+      {task.architectReview && (
+        <div className={styles.architectReview}>
+          <div className={styles.reviewHeader}>
+            <span className={`${styles.complexityBadge} ${styles[task.architectReview.complexity]}`}>
+              {task.architectReview.complexity}
+            </span>
+            <span className={styles.reviewLabel}>Architect Review</span>
+          </div>
+          {task.architectReview.impactedFiles.length > 0 && (
+            <div className={styles.impactedFiles}>
+              <strong>Impacted files:</strong>
+              <ul>
+                {task.architectReview.impactedFiles.map((file) => (
+                  <li key={file}>{file}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {task.architectReview.notes && (
+            <div className={styles.reviewNotes}>{task.architectReview.notes}</div>
+          )}
+        </div>
+      )}
 
       {task.result && (
         <div className={styles.result}>

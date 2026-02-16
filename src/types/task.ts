@@ -1,12 +1,20 @@
 import type { Timestamp } from 'firebase/firestore'
 
-export type TaskStatus = 'pending' | 'in_progress' | 'completed' | 'failed'
+export type TaskStatus = 'draft' | 'pending' | 'in_progress' | 'completed' | 'failed'
 
 export interface TaskResult {
   branchName: string
   commitHash: string
   prUrl?: string
   error?: string
+}
+
+export interface ArchitectReview {
+  repos: string[]
+  impactedFiles: string[]
+  complexity: 'low' | 'medium' | 'high'
+  notes: string
+  analyzedAt: Timestamp
 }
 
 export interface Task {
@@ -20,6 +28,9 @@ export interface Task {
   userId: string
   userDisplayName: string | null
   userPhotoUrl: string | null
+  source?: 'user' | 'product-owner'
+  sourceRef?: string
+  architectReview?: ArchitectReview
 }
 
 export interface CreateTaskInput {
