@@ -33,6 +33,20 @@ export async function executeTask(
       taskContent += `\n\nAdditional instructions: ${task.description}`
     }
 
+    if (task.architectReview) {
+      const review = task.architectReview
+      taskContent += `\n\n## Architect Analysis (complexity: ${review.complexity})`
+      if (review.impactedFiles.length > 0) {
+        taskContent += `\nImpacted files:\n${review.impactedFiles.map(f => `- ${f}`).join('\n')}`
+      }
+      if (review.repos.length > 0) {
+        taskContent += `\nRepositories: ${review.repos.join(', ')}`
+      }
+      if (review.notes) {
+        taskContent += `\nArchitect notes: ${review.notes}`
+      }
+    }
+
     const prompt = SAFETY_RULES + taskContent
 
     console.log(`\n[TaskExecutor] Starting task: ${task.title}`)
@@ -51,13 +65,13 @@ export async function executeTask(
 
     console.log(`[TaskExecutor] Running command via stdin pipe...`)
 
+    // Remove CLAUDECODE env var to prevent nested session detection
+    const spawnEnv = { ...process.env, CI: 'true' }
+    delete spawnEnv.CLAUDECODE
     const claude = spawn(command, [], {
       cwd: workingDir,
       shell: true,
-      env: {
-        ...process.env,
-        CI: 'true',
-      },
+      env: spawnEnv,
     })
 
     let stdout = ''
