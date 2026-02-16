@@ -1,7 +1,10 @@
 import { useState } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Header from './components/Header'
+import TicTacToe from './components/TicTacToe'
 import './App.css'
 
-function App() {
+function Home() {
   const [count, setCount] = useState(0)
 
   return (
@@ -11,6 +14,18 @@ function App() {
         count is {count}
       </button>
     </div>
+  )
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/tic-tac-toe" element={<TicTacToe />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
