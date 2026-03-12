@@ -21,10 +21,12 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/tic-tac-toe" element={<TicTacToe />} />
-      </Routes>
+      <div className="content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/tic-tac-toe" element={<TicTacToe />} />
+        </Routes>
+      </div>
     </BrowserRouter>
   )
 }
