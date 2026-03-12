@@ -24,11 +24,12 @@ export async function runClaude(
 
     console.log(`[ClaudeRunner] Running Claude CLI...`)
 
-    const { CLAUDECODE: _, ...cleanEnv } = process.env
+    const spawnEnv: Record<string, string | undefined> = { ...process.env, CI: 'true' }
+    delete spawnEnv['CLAUDECODE']
     const proc = spawn(command, [], {
       cwd: cwd ?? process.cwd(),
       shell: true,
-      env: { ...cleanEnv, CI: 'true' },
+      env: spawnEnv,
     })
 
     let stdout = ''

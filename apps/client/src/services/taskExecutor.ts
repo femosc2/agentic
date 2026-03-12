@@ -66,8 +66,8 @@ export async function executeTask(
     console.log(`[TaskExecutor] Running command via stdin pipe...`)
 
     // Remove CLAUDECODE env var to prevent nested session detection
-    const spawnEnv = { ...process.env, CI: 'true' }
-    delete spawnEnv.CLAUDECODE
+    const spawnEnv: Record<string, string | undefined> = { ...process.env, CI: 'true' }
+    delete spawnEnv['CLAUDECODE']
     const claude = spawn(command, [], {
       cwd: workingDir,
       shell: true,
