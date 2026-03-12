@@ -9,9 +9,8 @@ import {
 } from 'firebase/firestore'
 import { adminDb } from '../config/firebaseAdmin.js'
 
-const GITHUB_OWNER = process.env.GITHUB_OWNER || process.env.VITE_GITHUB_OWNER || ''
-const GITHUB_REPO = process.env.GITHUB_REPO || process.env.VITE_GITHUB_REPO || ''
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN || ''
+const GITHUB_OWNER = process.env.VITE_GITHUB_OWNER || ''
+const GITHUB_REPO = process.env.VITE_GITHUB_REPO || ''
 
 interface MergedPR {
   prUrl: string
@@ -24,14 +23,9 @@ async function fetchMergedPR(taskId: string): Promise<MergedPR | null> {
   const branch = `task/${taskId}`
   const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/pulls?state=closed&head=${GITHUB_OWNER}:${branch}&per_page=1`
 
-  const headers: Record<string, string> = {
-    Accept: 'application/vnd.github.v3+json',
-  }
-  if (GITHUB_TOKEN) {
-    headers['Authorization'] = `Bearer ${GITHUB_TOKEN}`
-  }
-
-  const response = await fetch(url, { headers })
+  const response = await fetch(url, {
+    headers: { Accept: 'application/vnd.github.v3+json' },
+  })
   if (!response.ok) {
     console.error(`[Monitor] GitHub API error ${response.status} for branch ${branch}`)
     return null
