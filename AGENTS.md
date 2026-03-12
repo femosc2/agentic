@@ -3,8 +3,8 @@
 Three agents run in sequence to process tasks automatically.
 
 ```
-email/form → [Product Owner] → [Architect] → [Developer]
-                 (draft)         (pending)    (completed)
+email/form → [Product Owner] → [Architect] → [Developer] → [Monitor]
+                 (draft)         (pending)    (in_progress)  (completed)
 ```
 
 ---
@@ -27,6 +27,17 @@ npm run agent:po -w apps/tasks
 
 ```bash
 npm run agent:architect -w apps/tasks
+```
+
+---
+
+## Monitor Agent
+
+**Location**: `apps/tasks`
+**Purpose**: Polls for `in_progress` tasks and checks GitHub for a merged PR on the `task/{taskId}` branch. When found, marks the task as `completed` with the PR URL and commit hash.
+
+```bash
+npm run agent:monitor -w apps/tasks
 ```
 
 ---
@@ -61,6 +72,9 @@ npm run agent:architect -w apps/tasks
 
 # Tab 3
 npm run agent -w apps/client
+
+# Tab 4
+npm run agent:monitor -w apps/tasks
 ```
 
 ## Required Environment Variables
@@ -74,3 +88,6 @@ All agents require a `.env` file in their respective app directory. See `.env.ex
 | `GH_TOKEN` | Developer | GitHub PAT for creating/merging PRs |
 | `TARGET_REPO_URL` | Developer | Repository the agent modifies |
 | `AGENT_WORKING_DIR` | all | Local path to the target repository |
+| `GITHUB_OWNER` | Monitor | GitHub username owning the target repo |
+| `GITHUB_REPO` | Monitor | Repository name to watch for merged PRs |
+| `GITHUB_TOKEN` | Monitor | GitHub PAT (optional for public repos) |

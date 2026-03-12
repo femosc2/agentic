@@ -12,7 +12,8 @@
     "test:ui": "vitest --ui",
     "test:run": "vitest run",
     "agent:po": "tsx src/agents/productOwner/index.ts",
-    "agent:architect": "tsx src/agents/architect/index.ts"
+    "agent:architect": "tsx src/agents/architect/index.ts",
+    "agent:monitor": "tsx src/agents/monitor/index.ts"
   },
   "dependencies": {
     "dotenv": "^16.4.0",
