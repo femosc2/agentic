@@ -14,6 +14,7 @@ const statusLabels: Record<Task['status'], string> = {
   in_progress: 'In Progress',
   completed: 'Completed',
   failed: 'Failed',
+  awaiting_developer: 'Awaiting Developer',
 }
 
 export function TaskItem({ task }: TaskItemProps) {
