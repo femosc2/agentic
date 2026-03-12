@@ -6,11 +6,14 @@ on:
       - main
     paths:
       - 'apps/client/**'
+      - '.github/workflows/deploy-client.yml'
   pull_request:
     branches:
       - main
     paths:
       - 'apps/client/**'
+      - '.github/workflows/deploy-client.yml'
+  workflow_dispatch:
 
 jobs:
   build:

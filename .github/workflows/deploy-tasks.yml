@@ -6,11 +6,14 @@ on:
       - main
     paths:
       - 'apps/tasks/**'
+      - '.github/workflows/deploy-tasks.yml'
   pull_request:
     branches:
       - main
     paths:
       - 'apps/tasks/**'
+      - '.github/workflows/deploy-tasks.yml'
+  workflow_dispatch:
 
 jobs:
   build:
