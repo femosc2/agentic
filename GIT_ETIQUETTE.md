@@ -29,6 +29,26 @@ Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>  ← if AI-assisted
 - **Body is optional** for simple single-purpose commits
 - **Co-authored-by**: include when the commit was written with AI assistance
 
+---
+
+## Branching & Merging
+
+- **Always rebase instead of merge** when integrating changes. Merge commits clutter the history and make it harder to follow the commit trail.
+- **`git pull`** is configured with `pull.rebase true` in this repo — rebasing happens automatically on pull.
+- **Squash related fixup commits** before pushing. A series of `fix:`, `wip:`, or iterative commits for the same change should be one clean commit.
+- **Never force push `main`** unless explicitly cleaning up history (e.g. squashing). Always use `--force-with-lease` over `--force` to avoid overwriting others' work.
+
+```bash
+# Pull and rebase (configured as default in this repo)
+git pull
+
+# Rebase your branch onto main before merging
+git rebase main
+
+# Squash the last N commits interactively
+git rebase -i HEAD~N
+```
+
 ### Examples
 
 **Simple commit (no body needed):**
