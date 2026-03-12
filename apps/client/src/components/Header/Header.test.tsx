@@ -6,7 +6,7 @@ describe('Header', () => {
   it('renders header with default title', () => {
     render(<Header />)
     
-    expect(screen.getByText('My App')).toBeInTheDocument()
+    expect(screen.getByText('Agentic')).toBeInTheDocument()
   })
 
   it('renders header with custom title', () => {

@@ -5,7 +5,7 @@ interface HeaderProps {
   title?: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ title = 'My App' }) => {
+const Header: React.FC<HeaderProps> = ({ title = 'Agentic' }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
