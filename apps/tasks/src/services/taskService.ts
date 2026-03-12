@@ -21,7 +21,7 @@ export async function createTask(input: CreateTaskInput): Promise<string> {
   const docRef = await addDoc(tasksCollection, {
     title: input.title,
     description: input.description || null,
-    status: 'pending',
+    status: 'draft',
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
     userId: input.userId,
