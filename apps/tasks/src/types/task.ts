@@ -1,6 +1,6 @@
 import type { Timestamp } from 'firebase/firestore'
 
-export type TaskStatus = 'draft' | 'pending' | 'in_progress' | 'completed' | 'failed'
+export type TaskStatus = 'draft' | 'pending' | 'in_progress' | 'completed' | 'failed' | 'awaiting_developer'
 
 export interface TaskResult {
   branchName: string

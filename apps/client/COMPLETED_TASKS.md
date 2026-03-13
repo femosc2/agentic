@@ -13,6 +13,22 @@ Updated the task executor to include architect analysis in the Claude Code promp
 
 ---
 
+### 2. Complexity-Based PR Handling
+**Date**: 2026-03-12
+
+The developer agent now behaves differently based on the architect's complexity assessment:
+
+- **low** → auto-merges the PR after creation (`gh pr merge --merge --delete-branch`)
+- **medium** → opens a PR and leaves it for review (unchanged behavior)
+- **high** → task is set to `awaiting_developer` by the architect; agent never claims it
+
+**Files modified:**
+- `src/types/task.ts` — Added `awaiting_developer` to `TaskStatus`
+- `src/services/gitService.ts` — Added `mergePullRequest()` function
+- `src/services/agentService.ts` — Auto-merges PR when `complexity === 'low'`
+
+---
+
 ## Learnings
 
 ### CLAUDECODE Environment Variable

@@ -1,6 +1,6 @@
 import { claimPendingTask, updateTaskStatus } from './taskPoller'
 import { executeTask } from './taskExecutor'
-import { executeGitWorkflow, finalizeGitWorkflow } from './gitService'
+import { executeGitWorkflow, finalizeGitWorkflow, mergePullRequest } from './gitService'
 import type { AgentConfig } from '../agent/config'
 
 let isRunning = false
@@ -60,6 +60,17 @@ export async function processNextTask(config: AgentConfig): Promise<boolean> {
       console.log(`  - Commit: ${gitResult.commitHash}`)
       if (gitResult.prUrl) {
         console.log(`  - PR: ${gitResult.prUrl}`)
+      }
+
+      const complexity = task.architectReview?.complexity
+      if (complexity === 'low' && gitResult.prUrl) {
+        console.log('[Agent] Low complexity task — auto-merging PR...')
+        const mergeResult = await mergePullRequest(config.workingDir)
+        if (mergeResult.success) {
+          console.log('[Agent] PR merged successfully')
+        } else {
+          console.log('[Agent] Auto-merge failed (PR left open):', mergeResult.error)
+        }
       }
 
       await updateTaskStatus(task.id, 'completed', {

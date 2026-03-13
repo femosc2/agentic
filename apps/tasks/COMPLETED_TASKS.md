@@ -35,6 +35,21 @@ email/form → PO Agent (draft task) → Architect Agent (analyze + promote) →
 
 ---
 
+### 2. Complexity-Based Task Routing
+**Date**: 2026-03-12
+
+The architect agent now routes tasks based on complexity instead of always setting them to `pending`:
+
+- **low** → `pending` → developer agent picks up, executes, creates PR, and **auto-merges** it
+- **medium** → `pending` → developer agent picks up, executes, opens PR for human review
+- **high** → `awaiting_developer` → agent skips it entirely; a human developer handles it manually
+
+**Files modified:**
+- `src/types/task.ts` — Added `awaiting_developer` to `TaskStatus`
+- `src/agents/architect/architectService.ts` — Sets status to `awaiting_developer` for high complexity tasks
+
+---
+
 ## Learnings
 
 ### Firebase Client SDK vs Admin SDK

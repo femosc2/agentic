@@ -99,8 +99,10 @@ export async function processNextDraft(): Promise<boolean> {
     ? analysis.complexity
     : 'medium'
 
+  const nextStatus = validComplexity === 'high' ? 'awaiting_developer' : 'pending'
+
   await updateDoc(taskRef, {
-    status: 'pending',
+    status: nextStatus,
     updatedAt: serverTimestamp(),
     architectReview: {
       repos: analysis.repos || [],
@@ -111,6 +113,6 @@ export async function processNextDraft(): Promise<boolean> {
     },
   })
 
-  console.log(`[Architect] Promoted task ${taskDoc.id} to pending (complexity: ${validComplexity})`)
+  console.log(`[Architect] Promoted task ${taskDoc.id} to ${nextStatus} (complexity: ${validComplexity})`)
   return true
 }

@@ -99,6 +99,10 @@ export async function createPullRequest(title: string, body: string, workingDir:
   return runCommand('gh', ['pr', 'create', '--title', `"${title}"`, '--body', `"${body}"`], workingDir)
 }
 
+export async function mergePullRequest(workingDir: string): Promise<GitResult> {
+  return runCommand('gh', ['pr', 'merge', '--merge', '--delete-branch'], workingDir)
+}
+
 export async function checkForChanges(workingDir: string): Promise<boolean> {
   const result = await runCommand('git', ['status', '--porcelain'], workingDir)
   return result.success && result.output.length > 0
