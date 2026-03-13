@@ -68,6 +68,7 @@ Before committing:
 2. Claude Code makes changes in the working directory
 3. Agent stages all changes, commits with task title
 4. Agent pushes and creates a PR
-5. Task status updated to `completed` with PR URL
+5. If complexity is `low`, the PR is auto-merged and the branch deleted
+6. Task status updated to `completed` with PR URL
 
 If any step fails, task status is set to `failed` with the error message.
